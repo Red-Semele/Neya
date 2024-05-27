@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Board Game</title>
+    <style>
+        #board {
+            display: grid;
+            grid-gap: 2px;
+            margin: 20px auto;
+            max-width: 80vmin;
+            border: 2px solid #333;
+        }
+        .cell {
+            width: 100%;
+            padding-bottom: 100%; /* Maintain square aspect ratio */
+            background-color: lightgray;
+            position: relative;
+        }
+        .pawn {
+            position: absolute;
+            width: 80%;
+            height: 80%;
+            background-color: blue;
+            border-radius: 50%;
+            top: 10%;
+            left: 10%;
+        }
+        .enemy {
+            background-color: red;
+        }
+        .highlight {
+            border: 2px solid yellow;
+        }
+        .pawn-info {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 999; /* Ensure it's above other elements */
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 5px;
+            border: 1px solid #333;
+        }
+    </style>
+</head>
+<body>
+    <div id="board"></div>
+    <div>
+        <select id="actionChoice">
+            <option value="movement">Movement</option>
+            <option value="attack">Attack</option>
+            <option value="giveDice">Give Dice</option>
+        </select>
+        <button id="performAction" onclick="performAction()">Perform</button>
+        <select id="upgradeChoice">
+            <option value="movement">Movement</option>
+            <option value="attack">Attack</option>
+            <option value="defense">Defense</option>
+            <option value="actions">Actions</option>
+            <option value="health">Health</option>
+        </select>
+        <button id="upgradeButton">Upgrade</button>
+        <span id="points">Points: 100</span>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
