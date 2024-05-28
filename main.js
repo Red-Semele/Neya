@@ -1,6 +1,7 @@
 const performActionButton = document.getElementById('performAction');
 const actionChoiceDropdown = document.getElementById('actionChoice');
 let pawnElement = document.createElement('div');
+let cell = document.createElement('div');
 
 class Pawn {
     
@@ -77,7 +78,7 @@ const board = document.getElementById('board');
 board.style.gridTemplateColumns = `repeat(${BOARD_SIZE}, 1fr)`;
 
 for (let i = 0; i < BOARD_SIZE * BOARD_SIZE; i++) {
-    const cell = document.createElement('div');
+    cell = document.createElement('div');
     cell.className = 'cell';
     cell.dataset.index = i; // Add index for easy identification
     board.appendChild(cell);
@@ -112,11 +113,12 @@ function placePawn(pawn, x, y) {
     }
     const index = x + y * BOARD_SIZE;
     const cell = board.children[index];
-    const pawnElement = document.createElement('div');
+    pawnElement = document.createElement('div');
     pawnElement.className = 'pawn';
     if (pawn.type === 'enemy') pawnElement.classList.add('enemy');
     cell.appendChild(pawnElement);
     pawn.position = { x, y }; // Update pawn's position
+    pawn.element = pawnElement;
 }
 
 function clearPawn(pawn) {
@@ -291,14 +293,19 @@ function showPawnInfo(pawn) {
         Health: ${pawn.health}<br>
     `;
     pawnInfo.innerHTML = stats;
-    pawnElement.appendChild(pawnInfo); //TODO: I'm having trouble here, the game thinks this is a function for some reason. It seems to be because pawn is a string and not a dom. I want it to apend to the cirle.
+    //pawnElement = cell.querySelector('.pawn');
+    //pawnElement.appendChild(pawnInfo);
+    pawn.element.appendChild(pawnInfo);
+    
+    console.log(pawnElement)
 }
 
 function hidePawnInfo(pawn) {
-    const pawnInfo = pawnElement.querySelector('.pawn-info');
+    pawnInfo = pawn.element.querySelector('.pawn-info');
     if (pawnInfo) {
         pawnInfo.remove();
     }
+    console.log (pawnInfo)
 }
 
 // Add event listeners for hover events on pawns
